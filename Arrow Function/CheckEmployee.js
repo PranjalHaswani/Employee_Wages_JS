@@ -244,4 +244,25 @@ while (totalEmpHrs <= MAX_HRS_IN_MONTH && totalWorkingDays < NUM_OF_WORKING_DAYS
         });
     }
 
-    console.log ("UC10 Showing Daily Hours Worked and Wage Earned: "+empDailyHrsAndWageArr);
+//     console.log ("UC10 Showing Daily Hours Worked and Wage Earned: "+empDailyHrsAndWageArr);
+//UC11
+let totalWages = empDailyHrsAndWageArr.filter(dailyHrsAndWage => dailyHrsAndWage.dailyWage > 0).reduce((totalWage, dailyHrsAndWage) => totalWage += dailyHrsAndWage.dailyWage, 0);
+let totalHours = empDailyHrsAndWageArr.filter(dailyHrsAndWage => dailyHrsAndWage.dailyWage > 0).reduce((totalHours, dailyHrsAndWage) => totalHours += dailyHrsAndWage.dailyHours, 0);
+
+console.log("UC 11A Total Hours: " + totalHours + " Total Wages: " + totalWages);
+
+// UC 11B: Logging Full Work Days (8 hours worked)
+process.stdout.write("UC 11B Logging Full Work Days");
+empDailyHrsAndWageArr.filter(dailyHrsAndWage => dailyHrsAndWage.dailyHours === 8)
+    .forEach(dailyHrsAndWage => process.stdout.write(dailyHrsAndWage.toString()));
+
+// UC 11C: Part-Time Working Day Strings (4 hours worked)
+let partWorkingDayStrArr = empDailyHrsAndWageArr.filter(dailyHrsAndWage => dailyHrsAndWage.dailyHours === 4)
+    .map(dailyHrsAndWage => dailyHrsAndWage.toString());
+console.log("\nUC 11C Part-Time Working Day Strings: " + partWorkingDayStrArr);
+
+// UC 11D: Non-Working Day Numbers (0 hours worked)
+let nonWorkingDayNums = empDailyHrsAndWageArr.filter(dailyHrsAndWage => dailyHrsAndWage.dailyHours === 0)
+    .map(dailyHrsAndWage => dailyHrsAndWage.dayNum);
+console.log("UC 11D Non-Working Day Numbers: " + nonWorkingDayNums);
+
